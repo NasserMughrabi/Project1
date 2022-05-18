@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django import forms
 from requests import request
 from . import util
+from random import randint 
 
 class newform(forms.Form):
     entry_title = forms.CharField(label="New Task")
@@ -80,5 +81,15 @@ def entry(request, entry):
     return render(request, "encyclopedia/entry.html", {
         "entry": entry_result,
         "title": entry
+    })
+
+def random(request):
+    random_entry = randint(0, len(util.list_entries())-1)
+    entry_title = util.list_entries()[random_entry]
+    entry_content = util.get_entry(entry_title)
+
+    return render(request, "encyclopedia/entry.html", {
+        "title": entry_title,
+        "entry": entry_content
     })
 
