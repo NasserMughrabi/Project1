@@ -1,9 +1,12 @@
+from django.http import HttpResponseBadRequest
 from django.shortcuts import render
 from django import forms
+from requests import request
 from . import util
 
 class newform(forms.Form):
     entry_title = forms.CharField(label="New Task")
+
 
 def new(request):
     return render(request, "encyclopedia/new.html", {
@@ -36,6 +39,18 @@ def search(request):
         "query_entry": request.GET.get('q', ''),
         "entries": util.list_entries()
     })
+
+def save_new(request):
+    entry_title = request.GET.get('entryTitle', '')
+    entry_content = request.GET.get('entryContent', '')
+    if entry_title in util.list_entries():
+        return HttpResponseBadRequest("ERROR: Entry already exists!")
+    else:
+        util.save_entry(entry_title, entry_content)
+        return render(request, "encyclopedia/entry.html", {
+            "title": entry_title,
+            "entry": entry_content
+        })
 
 
 def entry(request, entry):

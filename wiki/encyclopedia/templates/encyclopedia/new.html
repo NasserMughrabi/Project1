@@ -2,7 +2,12 @@
 
 {% block body %}
 <h1>Add Entry</h1>
-<form>
-    {{form}}
+<form action="{% url 'wiki:save_new' %}">
+    <label for="entryTitle">Entry Title:</label>
+    <input id="entryTitle" name="entryTitle" type="text">
+    <label for="entryContent">Entry Content:</label>
+    <textarea id="entryContent" name="entryContent" rows="4" cols="50">
+    </textarea>
+    <input type="submit">
 </form>
 {% endblock %}
