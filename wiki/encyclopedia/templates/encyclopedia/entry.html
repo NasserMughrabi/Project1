@@ -8,4 +8,5 @@
 <!-- Body -->
 {% block body %}
 {{ entry }}
+<a href="{% url 'wiki:edit' title=title %}">Edit Entry</a>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+
+<!-- Title -->
+{% block title %}
+{{ title }}
+{% endblock %}
+
+<!-- Body -->
+{% block body %}
+<h1>Edit Entry</h1>
+<form action="{% url 'wiki:save_edited' %}">
+    <input type="hidden" name="entryTitle" value={{title}}>
+
+    <label for="entryContent">Entry Content:</label>
+    <textarea id="entryContent" name="entryContent" rows="4" cols="50">
+    {{ entry }}
+    </textarea>
+    <input type="submit" value="Save">
+</form>
+{% endblock %}

@@ -52,6 +52,21 @@ def save_new(request):
             "entry": entry_content
         })
 
+def edit(request, title):
+    entry = util.get_entry(title)
+    return render(request, "encyclopedia/edit.html", {
+        "title": title,
+        "entry": entry
+    })
+
+def save_edited(request):
+    entry_title = request.GET.get('entryTitle', '')
+    entry_content = request.GET.get('entryContent', '')
+    util.save_entry(entry_title, entry_content)
+    return render(request, "encyclopedia/entry.html", {
+        "title": entry_title,
+        "entry": entry_content
+    })
 
 def entry(request, entry):
     if not entry.isupper():
